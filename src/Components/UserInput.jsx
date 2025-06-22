@@ -1,23 +1,4 @@
-import { useState } from "react";
-
-export default function InputFields() {
-  const [userInput, setUserInput] = useState({
-    initialInvestment: 1000,
-    annualInvestment: 1200,
-    expectedReturn: 6,
-    duration: 10,
-  });
-
-  function handleChange(inputIdentifier, newValue) {
-    setUserInput((prevUserInput) => {
-      return {
-        ...prevUserInput,
-        [inputIdentifier]: newValue,
-      };
-    });
-    console.log(userInput.annualInvestment);
-  }
-
+export default function InputFields({ onChange, userInput }) {
   return (
     <div id="user-input">
       <div className="input-group">
@@ -28,7 +9,7 @@ export default function InputFields() {
             required
             value={userInput.initialInvestment}
             onChange={(event) =>
-              handleChange("initialInvestment", event.target.value)
+              onChange("initialInvestment", event.target.value)
             }
             id="initialInvestment"
           />
@@ -40,7 +21,7 @@ export default function InputFields() {
             required
             value={userInput.annualInvestment}
             onChange={(event) =>
-              handleChange("annualInvestment", event.target.value)
+              onChange("annualInvestment", event.target.value)
             }
             id="annualInvestment"
           />
@@ -54,9 +35,7 @@ export default function InputFields() {
             type="number"
             required
             value={userInput.expectedReturn}
-            onChange={(event) =>
-              handleChange("expectedReturn", event.target.value)
-            }
+            onChange={(event) => onChange("expectedReturn", event.target.value)}
             id="expectedReturn"
           />
         </div>
@@ -65,7 +44,7 @@ export default function InputFields() {
           <input
             type="number"
             value={userInput.duration}
-            onChange={(event) => handleChange("duration", event.target.value)}
+            onChange={(event) => onChange("duration", event.target.value)}
             required
             id="duration"
           />
